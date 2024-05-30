@@ -1,11 +1,11 @@
-import React from "react";
+import { TongleBtn } from "./Sidebar";
 
 const Navbar = () => {
   return (
     <>
-      <div className="navbar bg-myprimary text-neutral-content ">
+      <div className="navbar bg-myprimary text-mysecondary">
         <div className="flex-1">
-          <a className="btn btn-ghost text-xl">daisyUI</a>
+          <TongleBtn />
         </div>
         <div className="flex-none">
           <div className="dropdown dropdown-end">

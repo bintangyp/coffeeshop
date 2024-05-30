@@ -8,6 +8,7 @@ export default {
         mysecondary: "#EBEBEB",
         myaccent: "#FBFBFB",
         mytext: "#1B1B13",
+        mygreen: "#44AAB4",
       },
       fontFamily: {
         sans: ["Helvetica", "Arial", "sans-serif"],

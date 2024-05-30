@@ -1,5 +1,4 @@
-import React from "react";
-import dopen from "../assets/icons/dopen.svg";
+import dopen from "../assets/icons/dopen-w.svg";
 import dashboard from "../assets/icons/dashboard.svg";
 import kasir from "../assets/icons/kasir.svg";
 import dpesanan from "../assets/icons/dpesanan.svg";
@@ -11,8 +10,8 @@ import mdata from "../assets/icons/mdata.svg";
 const Sidebar = () => {
   return (
     <>
-      <div className="drawer lg:drawer-open">
-        <TongleBtn />
+      <div className="drawer lg:drawer-open z-10 ">
+        <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
         <div className="drawer-side">
           <label
             htmlFor="my-drawer-2"
@@ -31,6 +30,7 @@ const Sidebar = () => {
             <NavItem label="pembelian" icon={pembelian} />
             <NavItem label="laporan" icon={laporan} />
             <NavItem label="master data" icon={mdata} />
+            <NavColItem />
           </ul>
         </div>
       </div>
@@ -38,13 +38,11 @@ const Sidebar = () => {
   );
 };
 
-const TongleBtn = () => {
+export const TongleBtn = () => {
   return (
     <>
-      <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-      <div className="drawer-content p-4">
+      <div className="drawer-content">
         {/* Page content here */}
-
         <label htmlFor="my-drawer-2" className=" drawer-button lg:hidden">
           <img src={dopen} alt="" />
         </label>
@@ -66,6 +64,36 @@ const NavItem = ({ label, icon }) => {
         </span>
       </button>
     </li>
+  );
+};
+const NavColItem = () => {
+  return (
+    <div className="collapse bg-mysecondary">
+      <input type="checkbox" />
+      <div className="collapse-title bg-mysecondary text-myprimary hover:bg-myprimary group p-3 flex items-center">
+        <img
+          src={mdata}
+          className="group-hover:brightness-0 group-hover:invert"
+          alt=""
+        />
+        <span className="text-myprimary group-hover:text-white capitalize text-md font-semibold">
+          master data
+        </span>
+      </div>
+      <div className="collapse-content">
+        <ul className="menu bg-base-200 w-56 rounded-box">
+          <li>
+            <a>Item 1</a>
+          </li>
+          <li>
+            <a>Item 2</a>
+          </li>
+          <li>
+            <a>Item 3</a>
+          </li>
+        </ul>
+      </div>
+    </div>
   );
 };
 
