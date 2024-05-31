@@ -1,11 +1,11 @@
 const Card = ({ label1, label2, span1, span2 }) => {
   return (
-    <div className="card max-w-80 bg-gradient-to-b from-mygreen to-myprimary text-primary-content flex-auto rounded-xl ">
+    <div className="card max-w-80 bg-mygreen text-primary-content flex-auto rounded-xl ">
       <div className="card-body">
         <p className=" uppercase font-semibold text-sm">{label1}</p>
-        <span className="text-2xl font-bold text-myaccent">{span1}</span>
+        <span className="text-xl font-bold text-myaccent">{span1}</span>
         <p className=" uppercase font-semibold text-sm">{label2}</p>
-        <span className="text-2xl font-bold text-myaccent">{span2}</span>
+        <span className="text-xl font-bold text-myaccent">{span2}</span>
       </div>
     </div>
   );

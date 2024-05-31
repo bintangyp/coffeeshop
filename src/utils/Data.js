@@ -1,4 +1,4 @@
-export const Data = [
+export const SalesPerDay = [
   {
     id: 1,
     days: "Senin",
@@ -40,5 +40,23 @@ export const Data = [
     days: "Minggu",
     userGain: 97000,
     userLost: 234,
+  },
+];
+
+export const TopProduct = [
+  {
+    id: 1,
+    product: "Americano",
+    terjual: 120,
+  },
+  {
+    id: 1,
+    product: "Cappuccino",
+    terjual: 200,
+  },
+  {
+    id: 1,
+    product: "Espresso",
+    terjual: 45,
   },
 ];

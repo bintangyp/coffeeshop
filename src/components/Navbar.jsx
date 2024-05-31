@@ -3,7 +3,7 @@ import { TongleBtn } from "./Sidebar";
 const Navbar = () => {
   return (
     <>
-      <div className="navbar bg-myprimary text-mysecondary">
+      <div className="navbar bg-myprimary text-mysecondary fixed lg:static z-10">
         <div className="flex-1">
           <TongleBtn />
         </div>

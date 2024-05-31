@@ -6,6 +6,7 @@ import dmenu from "../assets/icons/dmenu.svg";
 import pembelian from "../assets/icons/pembelian.svg";
 import laporan from "../assets/icons/laporan.svg";
 import mdata from "../assets/icons/mdata.svg";
+import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   return (
@@ -23,13 +24,16 @@ const Sidebar = () => {
             <span className="text-myprimary text-2xl font-bold mx-auto my-3">
               Coffee Apps
             </span>
-            <NavItem label="dashboard" icon={dashboard} />
-            <NavItem label="kasir" icon={kasir} />
-            <NavItem label="daftar pesanan" icon={dpesanan} />
-            <NavItem label="daftar menu" icon={dmenu} />
-            <NavItem label="pembelian" icon={pembelian} />
-            <NavItem label="laporan" icon={laporan} />
-            <NavItem label="master data" icon={mdata} />
+            <NavItem label="dashboard" icon={dashboard} path={"/"} />
+            <NavItem label="kasir" icon={kasir} path="/kasir" />
+            <NavItem
+              label="daftar pesanan"
+              icon={dpesanan}
+              path="daftar-pesanan"
+            />
+            <NavItem label="daftar menu" icon={dmenu} path="daftar-menu" />
+            <NavItem label="pembelian" icon={pembelian} path="pembelian" />
+            <NavItem label="laporan" icon={laporan} path="laporan" />
             <NavColItem />
           </ul>
         </div>
@@ -50,10 +54,13 @@ export const TongleBtn = () => {
     </>
   );
 };
-const NavItem = ({ label, icon }) => {
+const NavItem = ({ label, icon, path }) => {
   return (
     <li>
-      <button className="bg-mysecondary text-myprimary hover:bg-myprimary group p-3">
+      <Link
+        to={path}
+        className="bg-mysecondary text-myprimary hover:bg-myprimary group p-3 shadow"
+      >
         <img
           src={icon}
           className="group-hover:brightness-0 group-hover:invert"
@@ -62,7 +69,7 @@ const NavItem = ({ label, icon }) => {
         <span className="text-myprimary group-hover:text-white capitalize text-md font-semibold">
           {label}
         </span>
-      </button>
+      </Link>
     </li>
   );
 };

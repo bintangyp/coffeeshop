@@ -5,7 +5,7 @@ import americano from "../assets/product/americano.webp";
 
 const CardTerlaris = () => {
   return (
-    <div className="bg-myaccent flex-none w-1/3 p-4 rounded-xl">
+    <div className="bg-myaccent flex-none lg:w-1/3 p-4 rounded-xl">
       <div className="flex items-center mb-4">
         <img src={best} alt="" />
         <span className="uppercase font-bold pl-2">menu terlaris</span>
