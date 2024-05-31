@@ -14,6 +14,9 @@ export default {
         sans: ["Helvetica", "Arial", "sans-serif"],
         coffee: ["Coffee Latte"],
       },
+      height: {
+        "screen-min-200": "calc(100vh - 200px)",
+      },
     },
   },
   plugins: [require("daisyui")],
