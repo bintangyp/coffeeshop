@@ -14,8 +14,11 @@ export default {
         sans: ["Helvetica", "Arial", "sans-serif"],
         coffee: ["Coffee Latte"],
       },
+      maxHeight: {
+        "screen-min-220": "calc(100vh - 220px)",
+      },
       height: {
-        "screen-min-200": "calc(100vh - 200px)",
+        "screen-min-300": "calc(100vh - 300px)",
       },
     },
   },

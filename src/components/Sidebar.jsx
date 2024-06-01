@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 const Sidebar = () => {
   return (
     <>
-      <div className="drawer lg:drawer-open z-10 ">
+      <div className="drawer xl:drawer-open z-10 ">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
         <div className="drawer-side">
           <label
@@ -47,7 +47,7 @@ export const TongleBtn = () => {
     <>
       <div className="drawer-content">
         {/* Page content here */}
-        <label htmlFor="my-drawer-2" className=" drawer-button lg:hidden">
+        <label htmlFor="my-drawer-2" className=" drawer-button xl:hidden">
           <img src={dopen} alt="" />
         </label>
       </div>

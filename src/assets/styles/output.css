@@ -2301,8 +2301,8 @@ html:has(.drawer-toggle:checked) {
   visibility: collapse;
 }
 
-.fixed {
-  position: fixed;
+.end-0 {
+  inset-inline-end: 0px;
 }
 
 .z-10 {
@@ -2313,8 +2313,21 @@ html:has(.drawer-toggle:checked) {
   z-index: 1;
 }
 
+.float-end {
+  float: inline-end;
+}
+
+.float-right {
+  float: right;
+}
+
 .m-4 {
   margin: 1rem;
+}
+
+.mx-8 {
+  margin-left: 2rem;
+  margin-right: 2rem;
 }
 
 .mx-auto {
@@ -2322,19 +2335,24 @@ html:has(.drawer-toggle:checked) {
   margin-right: auto;
 }
 
+.my-2 {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
 .my-3 {
   margin-top: 0.75rem;
   margin-bottom: 0.75rem;
 }
 
-.my-auto {
-  margin-top: auto;
-  margin-bottom: auto;
-}
-
 .my-4 {
   margin-top: 1rem;
   margin-bottom: 1rem;
+}
+
+.my-auto {
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .mb-3 {
@@ -2347,6 +2365,10 @@ html:has(.drawer-toggle:checked) {
 
 .ml-4 {
   margin-left: 1rem;
+}
+
+.mr-2 {
+  margin-right: 0.5rem;
 }
 
 .mt-2 {
@@ -2369,6 +2391,10 @@ html:has(.drawer-toggle:checked) {
   display: grid;
 }
 
+.h-16 {
+  height: 4rem;
+}
+
 .h-20 {
   height: 5rem;
 }
@@ -2379,10 +2405,6 @@ html:has(.drawer-toggle:checked) {
 
 .h-5 {
   height: 1.25rem;
-}
-
-.h-96 {
-  height: 24rem;
 }
 
 .h-\[90vh\] {
@@ -2398,8 +2420,21 @@ html:has(.drawer-toggle:checked) {
   height: 100%;
 }
 
-.h-screen-min-200 {
-  height: calc(100vh - 200px);
+.h-max {
+  height: -moz-max-content;
+  height: max-content;
+}
+
+.h-screen-min-300 {
+  height: calc(100vh - 300px);
+}
+
+.h-8 {
+  height: 2rem;
+}
+
+.max-h-screen-min-220 {
+  max-height: calc(100vh - 220px);
 }
 
 .min-h-full {
@@ -2450,8 +2485,16 @@ html:has(.drawer-toggle:checked) {
   width: 100%;
 }
 
-.max-w-80 {
-  max-width: 20rem;
+.w-8 {
+  width: 2rem;
+}
+
+.w-3\/4 {
+  width: 75%;
+}
+
+.w-3\/5 {
+  width: 60%;
 }
 
 .flex-1 {
@@ -2476,6 +2519,10 @@ html:has(.drawer-toggle:checked) {
 
 .cursor-pointer {
   cursor: pointer;
+}
+
+.grid-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .grid-cols-3 {
@@ -2508,6 +2555,10 @@ html:has(.drawer-toggle:checked) {
 
 .gap-2 {
   gap: 0.5rem;
+}
+
+.gap-3 {
+  gap: 0.75rem;
 }
 
 .gap-4 {
@@ -2571,6 +2622,11 @@ html:has(.drawer-toggle:checked) {
 .bg-mysecondary {
   --tw-bg-opacity: 1;
   background-color: rgb(235 235 235 / var(--tw-bg-opacity));
+}
+
+.bg-black {
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
 }
 
 .p-2 {
@@ -2640,6 +2696,11 @@ html:has(.drawer-toggle:checked) {
   line-height: 1.75rem;
 }
 
+.text-xl\/loose {
+  font-size: 1.25rem;
+  line-height: 2;
+}
+
 .font-bold {
   font-weight: 700;
 }
@@ -2686,6 +2747,11 @@ html:has(.drawer-toggle:checked) {
   color: var(--fallback-pc,oklch(var(--pc)/var(--tw-text-opacity)));
 }
 
+.text-slate-400 {
+  --tw-text-opacity: 1;
+  color: rgb(148 163 184 / var(--tw-text-opacity));
+}
+
 .opacity-70 {
   opacity: 0.7;
 }
@@ -2729,12 +2795,12 @@ html:has(.drawer-toggle:checked) {
   background-color: #cb9363;
 }
 
-@media (min-width: 1024px) {
-  .lg\:drawer-open > .drawer-toggle {
+@media (min-width: 1280px) {
+  .xl\:drawer-open > .drawer-toggle {
     display: none;
   }
 
-  .lg\:drawer-open > .drawer-toggle ~ .drawer-side {
+  .xl\:drawer-open > .drawer-toggle ~ .drawer-side {
     pointer-events: auto;
     visibility: visible;
     position: sticky;
@@ -2743,29 +2809,29 @@ html:has(.drawer-toggle:checked) {
     overscroll-behavior: auto;
   }
 
-  .lg\:drawer-open > .drawer-toggle ~ .drawer-side > *:not(.drawer-overlay) {
+  .xl\:drawer-open > .drawer-toggle ~ .drawer-side > *:not(.drawer-overlay) {
     transform: translateX(0%);
   }
 
-  [dir="rtl"] .lg\:drawer-open > .drawer-toggle ~ .drawer-side > *:not(.drawer-overlay) {
+  [dir="rtl"] .xl\:drawer-open > .drawer-toggle ~ .drawer-side > *:not(.drawer-overlay) {
     transform: translateX(0%);
   }
 
-  .lg\:drawer-open > .drawer-toggle:checked ~ .drawer-side {
+  .xl\:drawer-open > .drawer-toggle:checked ~ .drawer-side {
     pointer-events: auto;
     visibility: visible;
   }
 
-  .lg\:drawer-open > .drawer-side {
+  .xl\:drawer-open > .drawer-side {
     overflow-y: auto;
   }
 
-  html:has(.lg\:drawer-open.lg\:drawer-open) {
+  html:has(.xl\:drawer-open.xl\:drawer-open) {
     overflow-y: auto;
     scrollbar-gutter: auto;
   }
 
-  .lg\:drawer-open > .drawer-toggle ~ .drawer-side > .drawer-overlay {
+  .xl\:drawer-open > .drawer-toggle ~ .drawer-side > .drawer-overlay {
     cursor: default;
     background-color: transparent;
   }
@@ -2798,10 +2864,6 @@ html:has(.drawer-toggle:checked) {
 }
 
 @media (min-width: 1024px) {
-  .lg\:static {
-    position: static;
-  }
-
   .lg\:mt-0 {
     margin-top: 0px;
   }
@@ -2810,15 +2872,37 @@ html:has(.drawer-toggle:checked) {
     display: flex;
   }
 
-  .lg\:hidden {
-    display: none;
-  }
-
   .lg\:w-1\/3 {
     width: 33.333333%;
   }
 
-  .lg\:grid-cols-6 {
+  .lg\:grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1280px) {
+  .xl\:mx-20 {
+    margin-left: 5rem;
+    margin-right: 5rem;
+  }
+
+  .xl\:hidden {
+    display: none;
+  }
+
+  .xl\:grid-cols-5 {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .xl\:text-2xl {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+}
+
+@media (min-width: 1536px) {
+  .\32xl\:grid-cols-6 {
     grid-template-columns: repeat(6, minmax(0, 1fr));
   }
 }

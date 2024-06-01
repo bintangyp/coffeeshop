@@ -1,57 +1,132 @@
-import React from "react";
+import { useState } from "react";
 import cappuccino from "../assets/product/cappuccino.webp";
-import americano from "../assets/product/americano.webp";
 import espresso from "../assets/product/espresso.webp";
+import cart from "../assets/icons/cart.svg";
+import minus from "../assets/icons/minus.svg";
+import { NumericFormat } from "react-number-format";
+
+const listProduct = [
+  { name: "cappuccino", img: cappuccino, price: 20000, jumlah: 0 },
+  { name: "americano", img: cappuccino, price: 30000, jumlah: 0 },
+  { name: "espresso", img: espresso, price: 24000, jumlah: 0 },
+  { name: "cappuc", img: cappuccino, price: 12000, jumlah: 0 },
+  { name: "cino", img: cappuccino, price: 22000, jumlah: 0 },
+];
 
 const Kasir = () => {
+  const [cartItem, setCartItem] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const addToChart = (data) => {
+    if (cartItem.find((product) => product.name == data.name)) {
+      console.log("produk sudah dipilih");
+      const existingProduct = cartItem.findIndex(
+        (product) => product.name == data.name
+      );
+      const updateCartItem = [...cartItem];
+      updateCartItem[existingProduct].jumlah += 1;
+      setCartItem(updateCartItem);
+      setTotalPrice(totalPrice + updateCartItem[existingProduct].price);
+    } else {
+      console.log("produk belum dipilih dan sudah ditambahkan");
+      data.jumlah += 1;
+      setCartItem([...cartItem, data]);
+      setTotalPrice(totalPrice + data.price);
+    }
+  };
+  const deleteFromCart = (data) => {
+    if (cartItem.find((product) => product.name == data.name)) {
+      console.log("produk sudah dipilih");
+      const existingProduct = cartItem.findIndex(
+        (product) => product.name == data.name
+      );
+      const updateCartItem = [...cartItem];
+      updateCartItem[existingProduct].jumlah -= 1;
+
+      if (updateCartItem[existingProduct].jumlah === 0) {
+        updateCartItem.splice(existingProduct, 1);
+        setTotalPrice(totalPrice - data.price);
+      } else {
+        setTotalPrice(totalPrice - updateCartItem[existingProduct].price);
+      }
+      setCartItem(updateCartItem);
+    } else {
+      console.log("produk belum dipilih dan sudah ditambahkan");
+      setCartItem([...cartItem, data]);
+    }
+  };
+
+  console.log(cartItem);
   return (
     <div className="p-4">
       <div className="bg-myaccent w-full rounded-lg p-4 ">
         <div className="flex gap-4">
           <div className="w-2/3">
             <Search />
-            <div className="grid grid-cols-3 lg:grid-cols-6 gap-4  h-screen-min-200 overflow-y-scroll px-4 my-4">
-              <CardProduct name="cappuccino" img={cappuccino} price="25000" />
-              <CardProduct name="cappuccino" img={cappuccino} price="25000" />
-              <CardProduct name="cappuccino" img={cappuccino} price="25000" />
-              <CardProduct name="cappuccino" img={cappuccino} price="25000" />
-              <CardProduct name="cappuccino" img={cappuccino} price="25000" />
-              <CardProduct name="cappuccino" img={cappuccino} price="25000" />
-              <CardProduct name="cappuccino" img={cappuccino} price="25000" />
-              <CardProduct name="cappuccino" img={cappuccino} price="25000" />
-              <CardProduct name="cappuccino" img={cappuccino} price="25000" />
-              <CardProduct name="cappuccino" img={cappuccino} price="25000" />
-              <CardProduct name="cappuccino" img={cappuccino} price="25000" />
-              <CardProduct name="cappuccino" img={cappuccino} price="25000" />
-              <CardProduct name="cappuccino" img={cappuccino} price="25000" />
-              <CardProduct name="cappuccino" img={cappuccino} price="25000" />
-              <CardProduct name="cappuccino" img={cappuccino} price="25000" />
-              <CardProduct name="cappuccino" img={cappuccino} price="25000" />
-              <CardProduct name="cappuccino" img={cappuccino} price="25000" />
-              <CardProduct name="cappuccino" img={cappuccino} price="25000" />
-              <CardProduct name="cappuccino" img={cappuccino} price="25000" />
-              <CardProduct name="cappuccino" img={cappuccino} price="25000" />
-              <CardProduct name="cappuccino" img={cappuccino} price="25000" />
-              <CardProduct name="cappuccino" img={cappuccino} price="25000" />
-              <CardProduct name="cappuccino" img={cappuccino} price="25000" />
-              <CardProduct name="cappuccino" img={cappuccino} price="25000" />
-              <CardProduct name="cappuccino" img={cappuccino} price="25000" />
-              <CardProduct name="cappuccino" img={cappuccino} price="25000" />
+            <div className="grid grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4  max-h-screen-min-220 overflow-y-scroll p-4 my-4">
+              {listProduct.map((data, index) => (
+                <CardProduct key={index} data={data} addToChart={addToChart} />
+              ))}
             </div>
           </div>
-          <div
-            className="w-1/3 h-96 bg-mysecondary rounded-lg"
-            id="keranjang"
-          ></div>
+          <div className="w-1/3 bg-mysecondary rounded-lg flex flex-col  ">
+            <div className="flex m-4 ">
+              <img src={cart} className="w-10 mr-2" alt="" />
+              <div className="capitalize text-myprimary text-xl/loose font-bold">
+                keranjang
+              </div>
+            </div>
+            <div className="px-4 h-screen-min-300  overflow-y-scroll">
+              {cartItem.map((data, index) => (
+                <ProductCart
+                  data={data}
+                  key={index}
+                  deleteFromCart={deleteFromCart}
+                />
+              ))}
+            </div>
+            <div className="mx-8 my-4 flex items-center gap-3 ">
+              <div className="capitalize text-lg xl:text-2xl font-bold">
+                total
+              </div>
+              <div className="bg-myaccent w-full p-2 rounded-lg text-lg font-bold">
+                Rp. <NumericFormat value={totalPrice} thousandSeparator="," />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
-const CardProduct = ({ name, price, img }) => {
+const ProductCart = ({ data, deleteFromCart }) => {
+  const { name, img, price, jumlah } = data;
   return (
-    <div className="card w-full bg-base-100 shadow-xl transition-all hover:scale-105 cursor-pointer">
+    <div className=" bg-myaccent rounded-lg p-2 gap-2 flex my-2 items-center">
+      <div className="h-16 ">
+        <img className="h-full rounded-lg" src={img} alt="" />
+      </div>
+      <div className="w-3/5">
+        <p className="font-bold">{name}</p>
+        <p className="text-slate-400 text-sm">Total Amount x{jumlah}</p>
+        <p className="text-myprimary font-bold text-sm">Rp. {price * jumlah}</p>
+      </div>
+      <div
+        className="flex float-right cursor-pointer"
+        onClick={() => deleteFromCart(data)}
+      >
+        <img src={minus} className="w-8" alt="" />
+      </div>
+    </div>
+  );
+};
+const CardProduct = ({ data, addToChart }) => {
+  const { name, price, img } = data;
+  return (
+    <div
+      className="card w-full h-max bg-base-100 shadow-xl transition-all hover:scale-105 cursor-pointer"
+      onClick={() => addToChart(data)}
+    >
       <figure className="px-3 pt-3">
         <img src={img} alt={name} className="rounded-xl" />
       </figure>
