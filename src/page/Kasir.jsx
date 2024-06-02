@@ -3,7 +3,7 @@ import cappuccino from "../assets/product/cappuccino.webp";
 import espresso from "../assets/product/espresso.webp";
 import cart from "../assets/icons/cart.svg";
 import minus from "../assets/icons/minus.svg";
-import { NumericFormat } from "react-number-format";
+import CurrencyFormat from "react-currency-format";
 
 const listProduct = [
   { name: "cappuccino", img: cappuccino, price: 20000, jumlah: 0 },
@@ -55,7 +55,7 @@ const Kasir = () => {
     }
   };
 
-  console.log(cartItem);
+  // console.log(cartItem);
   return (
     <div className="p-4">
       <div className="bg-myaccent w-full rounded-lg p-4 ">
@@ -75,7 +75,7 @@ const Kasir = () => {
                 keranjang
               </div>
             </div>
-            <div className="px-4 h-screen-min-300  overflow-y-scroll">
+            <div className="px-4 h-screen-min-350 lg:h-screen-min-300  overflow-y-scroll">
               {cartItem.map((data, index) => (
                 <ProductCart
                   data={data}
@@ -84,12 +84,24 @@ const Kasir = () => {
                 />
               ))}
             </div>
-            <div className="mx-8 my-4 flex items-center gap-3 ">
-              <div className="capitalize text-lg xl:text-2xl font-bold">
-                total
+            <div className="mx-8 my-4 flex gap-2 xl:gap-3 flex-col lg:flex-row lg:items-center ">
+              <div className="lg:w-4/6 flex gap-2 xl:gap-3 items-center">
+                <div className="capitalize text-lg xl:text-2xl font-bold">
+                  total
+                </div>
+                <div className="bg-myaccent w-full p-2 rounded-lg text-lg font-bold">
+                  <CurrencyFormat
+                    value={totalPrice}
+                    prefix="Rp."
+                    displayType="text"
+                    thousandSeparator
+                  />
+                </div>
               </div>
-              <div className="bg-myaccent w-full p-2 rounded-lg text-lg font-bold">
-                Rp. <NumericFormat value={totalPrice} thousandSeparator="," />
+              <div className="lg:w-2/6 w-full">
+                <button className="btn hover:bg-myprimary btn-xs sm:btn-sm md:btn-md w-full">
+                  Bayar
+                </button>
               </div>
             </div>
           </div>
@@ -107,9 +119,16 @@ const ProductCart = ({ data, deleteFromCart }) => {
         <img className="h-full rounded-lg" src={img} alt="" />
       </div>
       <div className="w-3/5">
-        <p className="font-bold">{name}</p>
+        <p className="font-bold capitalize">{name}</p>
         <p className="text-slate-400 text-sm">Total Amount x{jumlah}</p>
-        <p className="text-myprimary font-bold text-sm">Rp. {price * jumlah}</p>
+        <p className="text-myprimary font-bold text-sm">
+          <CurrencyFormat
+            value={price * jumlah}
+            displayType="text"
+            thousandSeparator
+            prefix="Rp."
+          />
+        </p>
       </div>
       <div
         className="flex float-right cursor-pointer"
@@ -134,7 +153,14 @@ const CardProduct = ({ data, addToChart }) => {
         <h2 className="font-bold capitalize pb-2 border-b border-myprimary">
           {name}
         </h2>
-        <p className="text-myprimary font-bold text-sm">Rp. {price}</p>
+        <p className="text-myprimary font-bold text-sm">
+          <CurrencyFormat
+            value={price}
+            thousandSeparator
+            displayType="text"
+            prefix="Rp."
+          />
+        </p>
       </div>
     </div>
   );

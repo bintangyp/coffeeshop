@@ -28,13 +28,13 @@ const Dashboard = () => {
   return (
     <div className="">
       <CardDashboard />
-      <div className="lg:flex flex-wrap gap-4 mt-2 flex-grow justify-center  w-5/6 mx-auto">
+      <div className="flex flex-col lg:flex-row flex-wrap gap-4 mb-4 lg:mt-2 flex-grow justify-center  w-5/6 mx-auto">
         <CardTerlaris />
-        <div className="flex-1 lg:flex  gap-4">
-          <div className="flex-1 bg-myaccent lg:w-1/3 rounded-xl h-fit p-5 mt-4 lg:mt-0">
+        <div className="flex-1 flex flex-col xl:flex-row gap-4">
+          <div className="flex-1 bg-myaccent xl:w-1/3 rounded-xl h-fit p-5  ">
             <BarChart chartData={dataBar} />
           </div>
-          <div className="flex-1 bg-myaccent lg:w-1/3 rounded-xl h-fit p-5 mt-4 lg:mt-0">
+          <div className="flex-1 bg-myaccent xl:w-1/3 rounded-xl h-fit p-5  ">
             <Piechart chartData={dataPie} />
           </div>
         </div>

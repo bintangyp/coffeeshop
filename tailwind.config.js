@@ -19,6 +19,7 @@ export default {
       },
       height: {
         "screen-min-300": "calc(100vh - 300px)",
+        "screen-min-350": "calc(100vh - 350px)",
       },
     },
   },

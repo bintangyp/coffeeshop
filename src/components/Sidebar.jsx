@@ -7,8 +7,17 @@ import pembelian from "../assets/icons/pembelian.svg";
 import laporan from "../assets/icons/laporan.svg";
 import mdata from "../assets/icons/mdata.svg";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const Sidebar = () => {
+  const [activePath, setActivePath] = useState("");
+  useEffect(() => {
+    setActivePath(window.location.pathname);
+  }, []);
+  useEffect(() => {
+    console.log(activePath);
+  }, [activePath]);
+
   return (
     <>
       <div className="drawer xl:drawer-open z-10 ">
@@ -24,16 +33,48 @@ const Sidebar = () => {
             <span className="text-myprimary text-2xl font-bold mx-auto my-3">
               Coffee Apps
             </span>
-            <NavItem label="dashboard" icon={dashboard} path={"/"} />
-            <NavItem label="kasir" icon={kasir} path="/kasir" />
+            <NavItem
+              label="dashboard"
+              icon={dashboard}
+              path={"/"}
+              setActivePath={setActivePath}
+              activePath={activePath}
+            />
+            <NavItem
+              label="kasir"
+              icon={kasir}
+              path="/kasir"
+              setActivePath={setActivePath}
+              activePath={activePath}
+            />
             <NavItem
               label="daftar pesanan"
               icon={dpesanan}
               path="daftar-pesanan"
+              setActivePath={setActivePath}
+              activePath={activePath}
             />
-            <NavItem label="daftar menu" icon={dmenu} path="daftar-menu" />
-            <NavItem label="pembelian" icon={pembelian} path="pembelian" />
-            <NavItem label="laporan" icon={laporan} path="laporan" />
+            <NavItem
+              label="daftar menu"
+              icon={dmenu}
+              path="daftar-menu"
+              setActivePath={setActivePath}
+              activePath={activePath}
+            />
+            <NavItem
+              label="pembelian"
+              icon={pembelian}
+              path="pembelian"
+              setActivePath={setActivePath}
+              activePath={activePath}
+            />
+            <NavItem
+              label="laporan"
+              icon={laporan}
+              path="laporan"
+              setActivePath={setActivePath}
+              activePath={activePath}
+            />
             <NavColItem />
           </ul>
         </div>
@@ -54,16 +95,25 @@ export const TongleBtn = () => {
     </>
   );
 };
-const NavItem = ({ label, icon, path }) => {
+const NavItem = ({ label, icon, path, setActivePath, activePath }) => {
   return (
     <li>
       <Link
         to={path}
-        className="bg-mysecondary text-myprimary hover:bg-myprimary group p-3 shadow"
+        className={
+          path === activePath
+            ? "bg-myprimary text-mysecondary hover:bg-myprimary group p-3 shadow"
+            : "bg-mysecondary text-myprimary hover:bg-myprimary group p-3 shadow"
+        }
+        onClick={() => setActivePath(path)}
       >
         <img
           src={icon}
-          className="group-hover:brightness-0 group-hover:invert"
+          className={
+            "group-hover:brightness-0 group-hover:invert " + path === activePath
+              ? "brightness-0 invert group-hover:brightness-0 group-hover:invert "
+              : "group-hover:brightness-0 group-hover:invert "
+          }
           alt=""
         />
         <span className="text-myprimary group-hover:text-white capitalize text-md font-semibold">
