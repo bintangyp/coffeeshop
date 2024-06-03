@@ -4,6 +4,7 @@ import Dashboard from "../page/Dashboard";
 import { Route, Routes } from "react-router-dom";
 import Kasir from "../page/Kasir";
 import NotFoundPage from "../page/NotFoundPage";
+import DaftarPesanan from "../page/DaftarPesanan";
 
 Chart.register(CategoryScale);
 const Content = () => {
@@ -12,7 +13,7 @@ const Content = () => {
       <Route path="*" element={<NotFoundPage />} />
       <Route path="/" element={<Dashboard />} />
       <Route path="kasir" element={<Kasir />} />
-      <Route path="daftar-pesanan" element={<Kasir />} />
+      <Route path="daftar-pesanan" element={<DaftarPesanan />} />
     </Routes>
   );
 };
