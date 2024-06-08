@@ -61,7 +61,7 @@ const fieldName = [
     },
   },
 ];
-const BtnMore = ({ productId, product, modalRef, setIsRendered }) => {
+const BtnMore = ({ id, setSelectedId }) => {
   return (
     <div className="h-6 flex gap-2">
       <img
@@ -69,13 +69,8 @@ const BtnMore = ({ productId, product, modalRef, setIsRendered }) => {
         alt=""
         className="cursor-pointer h-full"
         onClick={() => {
-          ReactDOM.render(
-            <Modal data={product} id={productId} />,
-            modalRef.current
-          );
-          setIsRendered(true);
-          document.getElementById("my_modal_1").showModal();
-          // setProductId(productId);
+          setSelectedId(id);
+          // document.getElementById("my_modal_1").showModal();
         }}
       />
       <img src={deleteIcon} alt="" className="cursor-pointer h-full" />
@@ -83,47 +78,50 @@ const BtnMore = ({ productId, product, modalRef, setIsRendered }) => {
   );
 };
 const DaftarMenu = () => {
-  const [productId, setProductId] = useState(9);
-  const [product, setProduct] = useState({});
-  const [isRendered, setIsRendered] = useState(false);
-  const modalRef = useRef(null);
-  const fakeProduct = Array.from({ length: 10 }, (_, index) => ({
-    kode: `PS${faker.string.numeric(3)}`,
-    name: faker.commerce.productName(),
-    hpp: faker.commerce.price({ symbol: "Rp." }),
-    hargaJual: faker.commerce.price({ symbol: "Rp." }),
-    gambar: faker.image.urlLoremFlickr({ category: "food" }),
-    detail: (
-      <BtnMore
-        productId={index}
-        data={product}
-        modalRef={modalRef}
-        setIsRendered={setIsRendered}
-      />
-    ),
-  }));
+  const [selectedId, setSelectedId] = useState(null);
+  const [fakeProduct, setFakeProduct] = useState(null);
   useEffect(() => {
-    console.log(productId);
-    setProduct(fakeProduct);
-  }, [productId]);
+    const data = Array.from({ length: 500 }, (_, index) => ({
+      kode: `PS${faker.string.numeric(3)}`,
+      name: faker.commerce.productName(),
+      hpp: faker.commerce.price({ symbol: "Rp." }),
+      hargaJual: faker.commerce.price({ symbol: "Rp." }),
+      gambar: faker.image.urlLoremFlickr({ category: "food" }),
+      detail: <BtnMore id={index} setSelectedId={setSelectedId} />,
+    }));
+    setFakeProduct(data);
+  }, []);
 
   return (
     <div className="p-4">
-      <div ref={modalRef}></div>
+      {selectedId !== null && (
+        <Modal
+          data={fakeProduct}
+          id={selectedId}
+          setSelectedId={setSelectedId}
+        />
+      )}
       <div className="bg-myaccent w-full rounded-lg p-4 ">
         <div className="uppercase font-bold">daftar menu</div>
         <div className="">
-          <TablesData data={fakeProduct} fieldName={fieldName} />
+          {fakeProduct !== null ? (
+            <TablesData data={fakeProduct} fieldName={fieldName} />
+          ) : (
+            <div className="text-center my-4">
+              <div className="text-myprimary">Sedang Meminta Data ...</div>
+              <progress className="progress w-56"></progress>
+            </div>
+          )}
         </div>
       </div>
     </div>
   );
 };
 
-const Modal = ({ data, id }) => {
+const Modal = ({ data, id, setSelectedId }) => {
   const product = data[id];
   return (
-    <dialog id="my_modal_1" className="modal">
+    <dialog id="my_modal_1" className="modal" open>
       <div className="modal-box w-11/12 lg:max-w-3xl ">
         <h3 className="font-bold text-lg">
           Edit <span className="text-mygreen">{product.name}</span>
@@ -137,7 +135,14 @@ const Modal = ({ data, id }) => {
         <div className="modal-action">
           <form method="dialog" className="flex gap-4">
             <button className="btn bg-myprimary text-mysecondary">Save</button>
-            <button className="btn">Close</button>
+            <button
+              className="btn"
+              onClick={() => {
+                setSelectedId(null);
+              }}
+            >
+              Close
+            </button>
           </form>
         </div>
       </div>

@@ -8,6 +8,9 @@ const customStyle = {
     },
   },
 };
+const customPagination = {
+  rowsPerPageText: "Data Perhalaman",
+};
 
 const TablesData = ({ data, fieldName }) => {
   const [filterText, setFilterText] = useState("");
@@ -39,6 +42,7 @@ const TablesData = ({ data, fieldName }) => {
         data={filterItems}
         pagination
         paginationResetDefaultPage={resetPaginationToggle} // optionally, a hook to reset pagination to page 1
+        paginationComponentOptions={customPagination}
         subHeader
         subHeaderComponent={useHeaderComponenMemo}
         persistTableHead
