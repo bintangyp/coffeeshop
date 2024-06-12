@@ -2,7 +2,9 @@ import TablesData from "../components/TablesData";
 import { faker } from "@faker-js/faker/locale/id_ID";
 import updateIcon from "../assets/icons/update.svg";
 import deleteIcon from "../assets/icons/delete.svg";
-import { useEffect, useRef, useState } from "react";
+import addIcon from "../assets/icons/add.svg";
+import printIcon from "../assets/icons/print.svg";
+import { useEffect, useState } from "react";
 
 const fieldName = [
   {
@@ -68,9 +70,9 @@ const BtnMore = ({ id, setSelectedId }) => {
         src={updateIcon}
         alt=""
         className="cursor-pointer h-full"
-        onClick={() => {
-          setSelectedId(id);
-          // document.getElementById("my_modal_1").showModal();
+        onClick={async () => {
+          await setSelectedId(id);
+          await document.getElementById("my_modal_1").showModal();
         }}
       />
       <img src={deleteIcon} alt="" className="cursor-pointer h-full" />
@@ -99,10 +101,40 @@ const DaftarMenu = () => {
           data={fakeProduct}
           id={selectedId}
           setSelectedId={setSelectedId}
+          modalId="my_modal_1"
+          open={true}
         />
       )}
       <div className="bg-myaccent w-full rounded-lg p-4 ">
         <div className="uppercase font-bold">daftar menu</div>
+        <div className="flex gap-4 float-end my-4">
+          <Modal
+            data=""
+            id=""
+            setSelectedId=""
+            modalId="modalAdd"
+            open={false}
+          />
+          <button className="btn h-10 bg-myaccent text-myprimary border-myprimary hover:text-myaccent hover:bg-mygreen hover:border-myaccent group">
+            <img
+              src={printIcon}
+              className="h-3/5 group-hover:brightness-0 group-hover:invert"
+              alt=""
+            />
+            Cetak
+          </button>
+          <button
+            className="btn h-10 bg-myprimary text-white hover:bg-myaccent hover:text-myprimary group"
+            onClick={() => document.getElementById("modalAdd").showModal()}
+          >
+            <img
+              src={addIcon}
+              className="h-3/5 invert brightness-0 group-hover:invert-0 group-hover:brightness-100"
+              alt=""
+            />
+            Tambah Menu
+          </button>
+        </div>
         <div className="">
           {fakeProduct !== null ? (
             <TablesData data={fakeProduct} fieldName={fieldName} />
@@ -118,19 +150,20 @@ const DaftarMenu = () => {
   );
 };
 
-const Modal = ({ data, id, setSelectedId }) => {
-  const product = data[id];
+const Modal = ({ data, id, setSelectedId, modalId, open }) => {
+  const product = data ? data[id] : "";
+
   return (
-    <dialog id="my_modal_1" className="modal" open>
+    <dialog id={modalId} className="modal">
       <div className="modal-box w-11/12 lg:max-w-3xl ">
         <h3 className="font-bold text-lg">
-          Edit <span className="text-mygreen">{product.name}</span>
+          Edit <span className="text-mygreen">{product.name || ""}</span>
         </h3>
         <div className="mx-8">
-          <InputText label="Nama Barang" value={product.name} />
-          <InputText label="Gambar" value={product.gambar} />
-          <InputText label="Harga Jual" value={product.hargaJual} />
-          <InputText label="HPP" value={product.hpp} />
+          <InputText label="Nama Barang" value={product.name || ""} />
+          <InputText label="Gambar" value={product.gambar || ""} />
+          <InputText label="Harga Jual" value={product.hargaJual || ""} />
+          <InputText label="HPP" value={product.hpp || ""} />
         </div>
         <div className="modal-action">
           <form method="dialog" className="flex gap-4">
