@@ -68,11 +68,12 @@ const BtnMore = ({ id, setSelectedId }) => {
     <div className="h-6 flex gap-2">
       <img
         src={updateIcon}
+        id="updateBtn"
         alt=""
         className="cursor-pointer h-full"
         onClick={async () => {
           await setSelectedId(id);
-          await document.getElementById("my_modal_1").showModal();
+          await document.getElementById("modalUpdate").showModal();
         }}
       />
       <img src={deleteIcon} alt="" className="cursor-pointer h-full" />
@@ -101,20 +102,13 @@ const DaftarMenu = () => {
           data={fakeProduct}
           id={selectedId}
           setSelectedId={setSelectedId}
-          modalId="my_modal_1"
-          open={true}
+          modalId="modalUpdate"
         />
       )}
       <div className="bg-myaccent w-full rounded-lg p-4 ">
         <div className="uppercase font-bold">daftar menu</div>
         <div className="flex gap-4 float-end my-4">
-          <Modal
-            data=""
-            id=""
-            setSelectedId=""
-            modalId="modalAdd"
-            open={false}
-          />
+          <Modal data="" id="" setSelectedId="" modalId="modalAdd" />
           <button className="btn h-10 bg-myaccent text-myprimary border-myprimary hover:text-myaccent hover:bg-mygreen hover:border-myaccent group">
             <img
               src={printIcon}
@@ -150,7 +144,7 @@ const DaftarMenu = () => {
   );
 };
 
-const Modal = ({ data, id, setSelectedId, modalId, open }) => {
+const Modal = ({ data, id, setSelectedId, modalId }) => {
   const product = data ? data[id] : "";
 
   return (
