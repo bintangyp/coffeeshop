@@ -9,7 +9,7 @@ import BreadCrumbs from "../components/BreadCrumbs";
 
 const fieldName = [
   {
-    name: "Kode",
+    name: "Kode Bahan",
     selector: (row) => row.kode,
     sortable: true,
     style: {
@@ -17,13 +17,26 @@ const fieldName = [
     },
   },
   {
-    name: "Nama Barang",
+    name: "Nama Bahan",
     selector: (row) => row.name,
     sortable: true,
   },
   {
-    name: "HPP",
-    selector: (row) => row.hpp,
+    name: "Stok",
+    selector: (row) => row.stok,
+    sortable: true,
+  },
+  {
+    name: "Satuan",
+    selector: (row) => row.satuan,
+    sortable: true,
+    style: {
+      justifyContent: "center",
+    },
+  },
+  {
+    name: "Harga Pokok / Satuan",
+    selector: (row) => row.hpokok,
     sortable: true,
     style: {
       borderRadius: "20px",
@@ -34,30 +47,8 @@ const fieldName = [
     },
   },
   {
-    name: "Harga Jual",
-    selector: (row) => row.hargaJual,
-    sortable: true,
-    style: {
-      borderRadius: "20px",
-      backgroundColor: "#5686E1",
-      margin: "10px",
-      color: "white",
-      justifyContent: "center",
-    },
-  },
-  {
-    name: "Gambar",
-    cell: (row) => <img className="h-full" alt={row.name} src={row.gambar} />,
-    sortable: true,
-    style: {
-      justifyContent: "center",
-      height: "40px",
-      alignItems: "center",
-    },
-  },
-  {
-    name: "Detail",
-    selector: (row) => row.detail,
+    name: "Aksi",
+    selector: (row) => row.aksi,
     sortable: true,
     style: {
       justifyContent: "center",
@@ -89,17 +80,17 @@ const BtnMore = ({ id, setSelectedId }) => {
     </div>
   );
 };
-const DaftarMenu = () => {
+const BahanPokok = () => {
   const [selectedId, setSelectedId] = useState(null);
   const [fakeProduct, setFakeProduct] = useState(null);
   useEffect(() => {
     const data = Array.from({ length: 500 }, (_, index) => ({
-      kode: `PS${faker.string.numeric(3)}`,
-      name: faker.commerce.productName(),
-      hpp: faker.commerce.price({ symbol: "Rp." }),
-      hargaJual: faker.commerce.price({ symbol: "Rp." }),
-      gambar: faker.image.urlLoremFlickr({ category: "food" }),
-      detail: <BtnMore id={index} setSelectedId={setSelectedId} />,
+      kode: `BP${faker.string.numeric(3)}`,
+      name: faker.commerce.productMaterial(),
+      stok: faker.string.numeric(1),
+      satuan: "kg",
+      hpokok: faker.commerce.price({ symbol: "Rp." }),
+      aksi: <BtnMore id={index} setSelectedId={setSelectedId} />,
     }));
     setFakeProduct(data);
   }, []);
@@ -123,7 +114,20 @@ const DaftarMenu = () => {
         </>
       )}
       <div className="bg-myaccent w-full rounded-lg p-4 ">
-        <BreadCrumbs link={["home", "daftar menu"]} />
+        <BreadCrumbs link={["home", "master data", "bahan pokok"]} />
+        <div className="flex gap-4 float-end my-4">
+          <button
+            className="btn h-10 bg-myprimary text-white hover:bg-myaccent hover:text-myprimary group"
+            onClick={() => document.getElementById("modalAdd").showModal()}
+          >
+            <img
+              src={addIcon}
+              className="h-3/5 invert brightness-0 group-hover:invert-0 group-hover:brightness-100"
+              alt=""
+            />
+            Tambah Menu
+          </button>
+        </div>
         <div className="flex gap-4 float-end my-4">
           <Modal data="" id="" setSelectedId="" modalId="modalAdd" />
           <button className="btn h-10 bg-myaccent text-myprimary border-myprimary hover:text-myaccent hover:bg-mygreen hover:border-myaccent group">
@@ -143,7 +147,7 @@ const DaftarMenu = () => {
               className="h-3/5 invert brightness-0 group-hover:invert-0 group-hover:brightness-100"
               alt=""
             />
-            Tambah Menu
+            Tambah Bahan
           </button>
         </div>
         <div className="">
@@ -181,10 +185,14 @@ const Modal = ({ data, id, setSelectedId, modalId }) => {
           <div className="capitalize font-bold my-4">yakin hapus data !</div>
         ) : (
           <div className="mx-8">
+            <InputText label="Kode Bahan" value={product.kode || ""} />
             <InputText label="Nama Barang" value={product.name || ""} />
-            <InputText label="Gambar" value={product.gambar || ""} />
-            <InputText label="Harga Jual" value={product.hargaJual || ""} />
-            <InputText label="HPP" value={product.hpp || ""} />
+            <InputText label="Stok" value={product.stok || ""} />
+            <InputText label="Satuan" value={product.satuan || ""} />
+            <InputText
+              label="Harga Pokok / Satuan"
+              value={product.hpokok || ""}
+            />
           </div>
         )}
         <div className="modal-action">
@@ -223,4 +231,4 @@ const InputText = ({ label, value }) => {
   );
 };
 
-export default DaftarMenu;
+export default BahanPokok;

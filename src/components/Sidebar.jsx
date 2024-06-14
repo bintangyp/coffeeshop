@@ -91,10 +91,10 @@ const NavColItem = () => {
       <div className="collapse-content">
         <ul className="menu bg-base-200 w-56 rounded-box">
           <li>
-            <a>Item 1</a>
+            <Link to="master-data/bahan-pokok"> Bahan Pokok</Link>
           </li>
           <li>
-            <a>Item 2</a>
+            <Link to="master-data/users"> Users</Link>
           </li>
           <li>
             <a>Item 3</a>
