@@ -115,21 +115,14 @@ const BahanPokok = () => {
       )}
       <div className="bg-myaccent w-full rounded-lg p-4 ">
         <BreadCrumbs link={["home", "master data", "bahan pokok"]} />
+
         <div className="flex gap-4 float-end my-4">
-          <button
-            className="btn h-10 bg-myprimary text-white hover:bg-myaccent hover:text-myprimary group"
-            onClick={() => document.getElementById("modalAdd").showModal()}
-          >
-            <img
-              src={addIcon}
-              className="h-3/5 invert brightness-0 group-hover:invert-0 group-hover:brightness-100"
-              alt=""
-            />
-            Tambah Menu
-          </button>
-        </div>
-        <div className="flex gap-4 float-end my-4">
-          <Modal data="" id="" setSelectedId="" modalId="modalAdd" />
+          <Modal
+            data=""
+            id=""
+            setSelectedId={setSelectedId}
+            modalId="modalAdd"
+          />
           <button className="btn h-10 bg-myaccent text-myprimary border-myprimary hover:text-myaccent hover:bg-mygreen hover:border-myaccent group">
             <img
               src={printIcon}
@@ -197,11 +190,11 @@ const Modal = ({ data, id, setSelectedId, modalId }) => {
         )}
         <div className="modal-action">
           <form method="dialog" className="flex gap-4">
-            <button className="btn bg-myprimary text-mysecondary">
+            <button className="btn bg-myprimary text-mysecondary hover:bg-[#b77d4a]">
               {modalId === "modalDelete" ? "Hapus" : "Simpan"}
             </button>
             <button
-              className="btn"
+              className="btn btn-error text-white"
               onClick={() => {
                 setSelectedId(null);
               }}

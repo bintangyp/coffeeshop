@@ -34,8 +34,27 @@ const Sidebar = () => {
             />
             <NavItem label="daftar menu" icon={dmenu} path="daftar-menu" />
             <NavItem label="pembelian" icon={pembelian} path="pembelian" />
-            <NavItem label="laporan" icon={laporan} path="laporan" />
-            <NavColItem />
+            <NavColItem
+              icon={laporan}
+              title="laporan"
+              listLink={[
+                { link: "laporan/penjualan", label: "Laporan Penjualan" },
+                { link: "laporan/pengeluaran", label: "Laporan Pengeluaran" },
+              ]}
+            />
+            <NavColItem
+              icon={mdata}
+              title="Master Data"
+              listLink={[
+                { link: "master-data/bahan-pokok", label: "Bahan Pokok" },
+                { link: "master-data/opname", label: "Stok Opname" },
+                { link: "master-data/suplayer", label: "Suplayer" },
+                { link: "master-data/hutang", label: "Hutang" },
+                { link: "master-data/piutang", label: "Piutang" },
+                { link: "master-data/users", label: "Users" },
+                { link: "master-data/profile", label: "Profile Usaha" },
+              ]}
+            />
           </ul>
         </div>
       </div>
@@ -74,31 +93,27 @@ const NavItem = ({ label, icon, path }) => {
     </li>
   );
 };
-const NavColItem = () => {
+const NavColItem = ({ icon, title, listLink }) => {
   return (
-    <div className="collapse bg-mysecondary">
-      <input type="checkbox" />
-      <div className="collapse-title bg-mysecondary text-myprimary hover:bg-myprimary group p-3 flex items-center">
+    <div className="collapse bg-mysecondary shadow rounded-lg group">
+      <input type="checkbox" className="min-h-0" />
+      <div className="collapse-title min-h-0 bg-mysecondary text-myprimary group-hover:bg-myprimary p-3 flex items-center">
         <img
-          src={mdata}
-          className="group-hover:brightness-0 group-hover:invert"
+          src={icon}
+          className="group-hover:brightness-0 group-hover:invert mr-2"
           alt=""
         />
         <span className="text-myprimary group-hover:text-white capitalize text-md font-semibold">
-          master data
+          {title}
         </span>
       </div>
       <div className="collapse-content">
-        <ul className="menu bg-base-200 w-56 rounded-box">
-          <li>
-            <Link to="master-data/bahan-pokok"> Bahan Pokok</Link>
-          </li>
-          <li>
-            <Link to="master-data/users"> Users</Link>
-          </li>
-          <li>
-            <a>Item 3</a>
-          </li>
+        <ul className="menu bg-base-200 rounded-box mt-2">
+          {listLink.map((link, id) => (
+            <li key={id} className="py-1">
+              <Link to={link.link}>{link.label}</Link>
+            </li>
+          ))}
         </ul>
       </div>
     </div>

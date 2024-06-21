@@ -6,62 +6,33 @@ import addIcon from "../assets/icons/add.svg";
 import printIcon from "../assets/icons/print.svg";
 import { useEffect, useState } from "react";
 import BreadCrumbs from "../components/BreadCrumbs";
+import InputText from "../components/form/InputText";
 
 const fieldName = [
   {
-    name: "Kode",
-    selector: (row) => row.kode,
+    name: "No Faktur",
+    selector: (row) => row.faktur,
     sortable: true,
-    style: {
-      justifyContent: "center",
-    },
   },
   {
-    name: "Nama Barang",
+    name: "Nama Suplayer",
     selector: (row) => row.name,
     sortable: true,
   },
   {
-    name: "HPP",
-    selector: (row) => row.hpp,
+    name: "Jatuh Tempo",
+    selector: (row) => row.tempo,
     sortable: true,
-    style: {
-      borderRadius: "20px",
-      backgroundColor: "#5686E1",
-      margin: "10px",
-      color: "white",
-      justifyContent: "center",
-    },
   },
   {
-    name: "Harga Jual",
-    selector: (row) => row.hargaJual,
+    name: "Status",
+    selector: (row) => row.status,
     sortable: true,
-    style: {
-      borderRadius: "20px",
-      backgroundColor: "#5686E1",
-      margin: "10px",
-      color: "white",
-      justifyContent: "center",
-    },
   },
   {
-    name: "Gambar",
-    cell: (row) => <img className="h-full" alt={row.name} src={row.gambar} />,
+    name: "Aksi",
+    selector: (row) => row.aksi,
     sortable: true,
-    style: {
-      justifyContent: "center",
-      height: "40px",
-      alignItems: "center",
-    },
-  },
-  {
-    name: "Detail",
-    selector: (row) => row.detail,
-    sortable: true,
-    style: {
-      justifyContent: "center",
-    },
   },
 ];
 const BtnMore = ({ id, setSelectedId }) => {
@@ -89,29 +60,22 @@ const BtnMore = ({ id, setSelectedId }) => {
     </div>
   );
 };
-const DaftarMenu = () => {
+const Hutang = () => {
   const [selectedId, setSelectedId] = useState(null);
   const [fakeProduct, setFakeProduct] = useState(null);
   useEffect(() => {
     const data = Array.from({ length: 500 }, (_, index) => ({
-      kode: `PS${faker.string.numeric(3)}`,
-      name: faker.commerce.productName(),
-      hpp: faker.commerce.price({ symbol: "Rp." }),
-      hargaJual: faker.commerce.price({ symbol: "Rp." }),
-      gambar: faker.image.urlLoremFlickr({ category: "food" }),
-      detail: <BtnMore id={index} setSelectedId={setSelectedId} />,
+      faktur: `BP${faker.string.numeric(3)}`,
+      name: faker.commerce.productMaterial(),
+      tempo: faker.location.city(1),
+      status: "belum lunas",
+      aksi: <BtnMore id={index} setSelectedId={setSelectedId} />,
     }));
     setFakeProduct(data);
   }, []);
 
   return (
     <div className="p-4">
-      <iframe
-        className="absolute none "
-        width="0"
-        height="0"
-        id="fprint"
-      ></iframe>
       {selectedId !== null && (
         <>
           <Modal
@@ -129,17 +93,16 @@ const DaftarMenu = () => {
         </>
       )}
       <div className="bg-myaccent w-full rounded-lg p-4 ">
-        <BreadCrumbs link={["home", "daftar menu"]} />
+        <BreadCrumbs link={["home", "master data", "Hutang"]} />
+
         <div className="flex gap-4 float-end my-4">
-          <Modal data="" id="" setSelectedId="" modalId="modalAdd" />
-          <button
-            className="btn h-10 bg-myaccent text-myprimary border-myprimary hover:text-myaccent hover:bg-mygreen hover:border-myaccent group"
-            onClick={() =>
-              document
-                .getElementById("fprint")
-                .setAttribute("src", "http://localhost:5173/daftar-menu/print")
-            }
-          >
+          <Modal
+            data=""
+            id=""
+            setSelectedId={setSelectedId}
+            modalId="modalAdd"
+          />
+          <button className="btn h-10 bg-myaccent text-myprimary border-myprimary hover:text-myaccent hover:bg-mygreen hover:border-myaccent group">
             <img
               src={printIcon}
               className="h-3/5 group-hover:brightness-0 group-hover:invert"
@@ -156,7 +119,7 @@ const DaftarMenu = () => {
               className="h-3/5 invert brightness-0 group-hover:invert-0 group-hover:brightness-100"
               alt=""
             />
-            Tambah Menu
+            Tambah Bahan
           </button>
         </div>
         <div className="">
@@ -175,7 +138,7 @@ const DaftarMenu = () => {
 };
 
 const Modal = ({ data, id, setSelectedId, modalId }) => {
-  const product = data ? data[id] : "";
+  const suplayer = data ? data[id] : "";
 
   return (
     <dialog id={modalId} className="modal">
@@ -187,26 +150,30 @@ const Modal = ({ data, id, setSelectedId, modalId }) => {
         }
       >
         <h3 className="font-bold text-xl">
-          {modalId === "modalDelete" ? "Hapus " : "Edit"}
-          <span className="text-mygreen">{product.name || ""}</span>
+          {modalId === "modalDelete"
+            ? "Hapus "
+            : modalId === "modalUpdate"
+            ? "Edit "
+            : "Tambahkan Suplayer"}
+          <span className="text-mygreen">{suplayer.name || ""}</span>
         </h3>
         {modalId === "modalDelete" ? (
           <div className="capitalize font-bold my-4">yakin hapus data !</div>
         ) : (
           <div className="mx-8">
-            <InputText label="Nama Barang" value={product.name || ""} />
-            <InputText label="Gambar" value={product.gambar || ""} />
-            <InputText label="Harga Jual" value={product.hargaJual || ""} />
-            <InputText label="HPP" value={product.hpp || ""} />
+            <InputText label="Kode Suplayer" value={suplayer.kode || ""} />
+            <InputText label="Nama Suplayer" value={suplayer.name || ""} />
+            <InputText label="Alamat" value={suplayer.alamat || ""} />
+            <InputText label="Telp" value={suplayer.telp || ""} />
           </div>
         )}
         <div className="modal-action">
           <form method="dialog" className="flex gap-4">
-            <button className="btn bg-myprimary text-mysecondary">
+            <button className="btn bg-myprimary text-mysecondary hover:bg-[#b77d4a]">
               {modalId === "modalDelete" ? "Hapus" : "Simpan"}
             </button>
             <button
-              className="btn"
+              className="btn btn-error text-white"
               onClick={() => {
                 setSelectedId(null);
               }}
@@ -220,20 +187,4 @@ const Modal = ({ data, id, setSelectedId, modalId }) => {
   );
 };
 
-const InputText = ({ label, value }) => {
-  return (
-    <label className="form-control w-full">
-      <div className="label">
-        <span className="label-text">{label}</span>
-      </div>
-      <input
-        type="text"
-        defaultValue={value}
-        placeholder="Type here"
-        className="input input-bordered w-full "
-      />
-    </label>
-  );
-};
-
-export default DaftarMenu;
+export default Hutang;
