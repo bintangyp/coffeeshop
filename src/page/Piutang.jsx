@@ -60,7 +60,7 @@ const BtnMore = ({ id, setSelectedId }) => {
     </div>
   );
 };
-const Hutang = () => {
+const Piutang = () => {
   const [selectedId, setSelectedId] = useState(null);
   const [fakeProduct, setFakeProduct] = useState(null);
   useEffect(() => {
@@ -93,9 +93,9 @@ const Hutang = () => {
         </>
       )}
       <div className="bg-myaccent w-full rounded-lg p-4 ">
-        <BreadCrumbs link={["home", "master data", "Hutang"]} />
+        <BreadCrumbs link={["home", "master data", "Piutang"]} />
 
-        <div className="flex gap-4 float-end my-4 mr-4">
+        <div className="flex gap-4 float-end my-4">
           <Modal
             data=""
             id=""
@@ -109,6 +109,17 @@ const Hutang = () => {
               alt=""
             />
             Cetak
+          </button>
+          <button
+            className="btn h-10 bg-myprimary text-white hover:bg-myaccent hover:text-myprimary group"
+            onClick={() => document.getElementById("modalAdd").showModal()}
+          >
+            <img
+              src={addIcon}
+              className="h-3/5 invert brightness-0 group-hover:invert-0 group-hover:brightness-100"
+              alt=""
+            />
+            Tambah Piutang
           </button>
         </div>
         <div className="">
@@ -176,4 +187,4 @@ const Modal = ({ data, id, setSelectedId, modalId }) => {
   );
 };
 
-export default Hutang;
+export default Piutang;

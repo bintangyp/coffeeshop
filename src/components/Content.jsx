@@ -14,6 +14,8 @@ import PrintPage from "../page/PrintPage";
 import StockOpname from "../page/StockOpname";
 import Suplayer from "../page/Suplayer";
 import Hutang from "../page/Hutang";
+import Piutang from "../page/Piutang";
+import Profile from "../page/Profile";
 
 Chart.register(CategoryScale);
 const Content = () => {
@@ -32,6 +34,8 @@ const Content = () => {
       <Route path="master-data/opname" element={<StockOpname />} />
       <Route path="master-data/suplayer" element={<Suplayer />} />
       <Route path="master-data/hutang" element={<Hutang />} />
+      <Route path="master-data/piutang" element={<Piutang />} />
+      <Route path="master-data/profile" element={<Profile />} />
     </Routes>
   );
 };
