@@ -16,6 +16,7 @@ import Suplayer from "../page/Suplayer";
 import Hutang from "../page/Hutang";
 import Piutang from "../page/Piutang";
 import Profile from "../page/Profile";
+import Login from "../page/Login";
 
 Chart.register(CategoryScale);
 const Content = () => {
@@ -23,6 +24,7 @@ const Content = () => {
     <Routes>
       <Route path="*" element={<NotFoundPage />} />
       <Route path="/" element={<Dashboard />} />
+      <Route path="/login" element={<Login />} />
       <Route path="kasir" element={<Kasir />} />
       <Route path="daftar-pesanan" element={<DaftarPesanan />} />
       <Route path="daftar-menu" element={<DaftarMenu />} />
