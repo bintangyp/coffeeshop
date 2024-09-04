@@ -1,6 +1,14 @@
+import { useNavigate } from "react-router-dom";
 import { TongleBtn } from "./Sidebar";
+import { useAuth } from "./AuthContext";
 
 const Navbar = () => {
+  const navigate = useNavigate();
+  const { logout } = useAuth();
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
   return (
     <>
       <div className="navbar bg-myprimary text-mysecondary ">
@@ -74,7 +82,7 @@ const Navbar = () => {
                 <a>Settings</a>
               </li>
               <li>
-                <a>Logout</a>
+                <a onClick={handleLogout}>Logout</a>
               </li>
             </ul>
           </div>

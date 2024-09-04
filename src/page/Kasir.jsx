@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import cappuccino from "../assets/product/cappuccino.webp";
 import espresso from "../assets/product/espresso.webp";
 import cart from "../assets/icons/cart.svg";
 import minus from "../assets/icons/minus.svg";
 import CurrencyFormat from "react-currency-format";
+import axios from "axios";
 
 const listProduct = [
   { name: "cappuccino", img: cappuccino, price: 20000, jumlah: 0 },
@@ -16,6 +17,25 @@ const listProduct = [
 const Kasir = () => {
   const [cartItem, setCartItem] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [products, setProducts] = useState({});
+  const getMenu = async () => {
+    const config = {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    };
+    await axios
+      .get("http://localhost:3000/menu", config)
+      .then((res) => {
+        setProducts(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  useEffect(() => {
+    getMenu();
+  }, []);
+
+  console.log(products);
   const addToChart = (data) => {
     if (cartItem.find((product) => product.name == data.name)) {
       console.log("produk sudah dipilih");
@@ -63,7 +83,7 @@ const Kasir = () => {
           <div className="w-2/3">
             <Search />
             <div className="grid grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4  max-h-screen-min-220 overflow-y-scroll p-4 my-4">
-              {listProduct.map((data, index) => (
+              {products.map((data, index) => (
                 <CardProduct key={index} data={data} addToChart={addToChart} />
               ))}
             </div>
@@ -140,22 +160,22 @@ const ProductCart = ({ data, deleteFromCart }) => {
   );
 };
 const CardProduct = ({ data, addToChart }) => {
-  const { name, price, img } = data;
+  const { nama_m, harga_j, gambar } = data;
   return (
     <div
       className="card w-full h-max bg-base-100 shadow-xl transition-all hover:scale-105 cursor-pointer"
       onClick={() => addToChart(data)}
     >
       <figure className="px-3 pt-3">
-        <img src={img} alt={name} className="rounded-xl" />
+        <img src={gambar} alt={nama_m} className="rounded-xl" />
       </figure>
       <div className="card-body p-3">
         <h2 className="font-bold capitalize pb-2 border-b border-myprimary">
-          {name}
+          {nama_m}
         </h2>
         <p className="text-myprimary font-bold text-sm">
           <CurrencyFormat
-            value={price}
+            value={harga_j}
             thousandSeparator
             displayType="text"
             prefix="Rp."

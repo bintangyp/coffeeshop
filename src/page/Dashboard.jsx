@@ -3,7 +3,9 @@ import CardTerlaris from "../components/CardTerlaris";
 import { BarChart } from "../components/Barchart";
 import { Piechart } from "../components/Piechart";
 import { SalesPerDay, TopProduct } from "../utils/Data";
-
+import { CategoryScale } from "chart.js";
+import Chart from "chart.js/auto";
+Chart.register(CategoryScale);
 const Dashboard = () => {
   const dataBar = {
     labels: SalesPerDay.map((data) => data.days),

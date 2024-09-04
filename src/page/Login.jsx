@@ -1,8 +1,45 @@
-import React from "react";
-import kasir from "../assets/icons/kasir.svg";
-import { redirect } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../components/AuthContext";
+import axios from "axios";
 
 const Login = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [alert, setAlert] = useState({
+    show: false,
+    message: "",
+  });
+  const navigate = useNavigate();
+  const { login } = useAuth();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+
+    formData.append("username", username);
+    formData.append("password", password);
+
+    await axios
+      .post("http://localhost:3000/login", formData, {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        localStorage.setItem("token", res.data.token);
+        login();
+        navigate("/");
+      })
+      .catch((err) => {
+        const error = err.response.data.error;
+        if (error === "NOTFOUND") {
+          setAlert({ ["show"]: true, ["message"]: "User tidak ditemukan" });
+        }
+        if (error === "WRONG_PASSWORD") {
+          setAlert({ ["show"]: true, ["message"]: "Password anda salah!" });
+        }
+      });
+  };
   return (
     <div className="bg-gradient-to-t from-myprimary to-mygreen h-screen flex justify-center items-center">
       <div className=" bg-mysecondary/40 backdrop-blur-sm rounded-2xl shadow-md indicator flex justify-center items-center flex-col px-20 py-16">
@@ -15,7 +52,7 @@ const Login = () => {
         <div className="capitalize text-mysecondary font-bold text-lg mb-6">
           login Now
         </div>
-        <div className="flex flex-col gap-4">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <label className="input input-bordered flex items-center gap-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -25,7 +62,16 @@ const Login = () => {
             >
               <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
             </svg>
-            <input type="text" className="grow" placeholder="Username" />
+            <input
+              type="text"
+              className="grow"
+              name="username"
+              placeholder="Username"
+              onChange={(e) => {
+                setUsername(e.target.value);
+              }}
+              required
+            />
           </label>
           <label className="input input-bordered flex items-center gap-2">
             <svg
@@ -40,35 +86,30 @@ const Login = () => {
                 clipRule="evenodd"
               />
             </svg>
-            <input type="password" className="grow" placeholder="Password" />
+            <input
+              type="password"
+              className="grow"
+              name="password"
+              placeholder="Password"
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+              required
+            />
           </label>
-
-          <div role="alert" className="alert alert-error rounded-lg text-white">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6 shrink-0 stroke-current"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
-            <span>Error! Task failed successfully.</span>
-          </div>
+          {alert.show === true ? (
+            <span className="italic text-red-600">{alert.message}</span>
+          ) : (
+            ""
+          )}
 
           <button
             className="btn bg-mygreen border-0 text-mysecondary hover:bg-mysecondary hover:text-mygreen"
-            onClick={() => {
-              redirect("/");
-            }}
+            type="submit"
           >
             Login
           </button>
-        </div>
+        </form>
       </div>
     </div>
   );
